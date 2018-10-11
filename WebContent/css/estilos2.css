@@ -1,0 +1,53 @@
+html, body{
+	 min-height:100%;
+}
+
+p{
+	margin-top: 4rem;
+	text-align:center;
+	color:white;
+	font-size:1.6rem;
+}
+
+body{
+	 background-image: url("../images/background.jpg");
+	 background-position: center;
+   	 background-repeat: no-repeat;
+     background-size: cover;
+}
+
+h1, h3{
+	margin-top:1rem;
+	text-align:center;
+	color: white;
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+form{
+	margin-bottom:4rem;
+}
+
+form input{
+	text-align:center;
+	font-size:1.4rem;
+	display:inline-block;
+	width:30%;
+	margin-left:35%;
+}
+
+form input[type=submit]{
+	width:10%;
+	margin-left:45%;
+	border:2px solid white;
+	background-color:transparent;
+	color:white;
+	transition: .5s;
+}
+
+form input[type=submit]:hover{
+	border:2px solid white;
+	background-color:white;
+	color:navy;
+	transform:scale(1.1);
+	}
