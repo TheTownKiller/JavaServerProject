@@ -53,12 +53,12 @@ public class GuessAttempt extends HttpServlet {
 		try {
 			 valor = Integer.parseInt(request.getParameter("attempt"));
 		}catch(Exception e) {
-			session.setAttribute("error", "Debe introducir un número entero");
+			session.setAttribute("message", "Debe introducir un número entero");
 			contexto.getRequestDispatcher("/selectNumber.jsp").forward(request, response);
 			return;
 		}
 		if(valor == (Integer) session.getAttribute("valor")) {
-			session.setAttribute("error", "Has acertado, el numero era " + session.getAttribute("valor"));
+			session.setAttribute("message", "Has acertado, el numero era " + session.getAttribute("valor"));
 			contexto.getRequestDispatcher("/index.jsp").forward(request, response);
 			return;
 		}else {
@@ -78,9 +78,9 @@ public class GuessAttempt extends HttpServlet {
 			intentos.add(attempt);
 			session.setAttribute("intentos", intentos);
 			if(valor>(Integer) session.getAttribute("valor")) {
-				session.setAttribute("error", "Intentalo de nuevo, el numero que tienes que adivinar es más pequeño.");
+				session.setAttribute("message", "Intentalo de nuevo, el numero que tienes que adivinar es más pequeño.");
 			}else {
-				session.setAttribute("error", "Intentalo de nuevo, el numero que tienes que adivinar es más grande.");
+				session.setAttribute("message", "Intentalo de nuevo, el numero que tienes que adivinar es más grande.");
 			}
 			contexto.getRequestDispatcher("/selectNumber.jsp").forward(request, response);
 		}

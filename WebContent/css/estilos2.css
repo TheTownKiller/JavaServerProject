@@ -48,6 +48,6 @@ form input[type=submit]{
 form input[type=submit]:hover{
 	border:2px solid white;
 	background-color:white;
-	color:navy;
+	color:black;
 	transform:scale(1.1);
 	}

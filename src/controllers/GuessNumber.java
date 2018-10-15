@@ -49,17 +49,17 @@ public class GuessNumber extends HttpServlet {
 			 menor = Integer.parseInt(request.getParameter("menor"));
 			 mayor = Integer.parseInt(request.getParameter("mayor"));
 		}catch(Exception e) {
-			session.setAttribute("error", "Ambos campos deben ser un número");
+			session.setAttribute("message", "Ambos campos deben ser un número");
 			contexto.getRequestDispatcher("/index.jsp").forward(request, response);
 			return;
 		}
 		if(menor == mayor) {
-			session.setAttribute("error", "Los campos deben ser distintos");
+			session.setAttribute("message", "Los campos deben ser distintos");
 			contexto.getRequestDispatcher("/index.jsp").forward(request, response);
 			return;
 		}
 		 if(menor>mayor) {
-			 session.setAttribute("error", "El campo mayor debe ser mas grande que el campo menor");
+			 session.setAttribute("message", "El campo mayor debe ser mas grande que el campo menor");
 				contexto.getRequestDispatcher("/index.jsp").forward(request, response);
 				return; 
 		 }

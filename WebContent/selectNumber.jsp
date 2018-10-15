@@ -12,9 +12,9 @@
 <body>
 <h1>Adivina el número</h1>
 <%
-if(session.getAttribute("error") != null){
-	 out.println("<h1>" + session.getAttribute("error") + "</h1>");
-	 session.setAttribute("error", null);
+if(session.getAttribute("message") != null){
+	 out.println("<h1>" + session.getAttribute("message") + "</h1>");
+	 session.setAttribute("message", null);
 }
 %>
 <p>Todo listo, elija un número entre <% out.print(session.getAttribute("menor")); %> y <% out.print(session.getAttribute("mayor")); %></p>
