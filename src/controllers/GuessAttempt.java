@@ -44,46 +44,45 @@ public class GuessAttempt extends HttpServlet {
 		ArrayList<ArrayList<Object>> intentos = new ArrayList<ArrayList<Object>>();
 		HttpSession session = request.getSession(true);
 		 ServletContext contexto = this.getServletContext();
-		 int valor = 0;
+		 int valor;
 		 if(request.getParameter("cancelar")!=null) {
 			 session.invalidate();
 			 contexto.getRequestDispatcher("/index.jsp").forward(request, response);
-			 return;
+		 }else {
+			 try {
+				 valor = Integer.parseInt(request.getParameter("attempt"));
+				 
+					if(valor == (Integer) session.getAttribute("valor")) {
+						session.setAttribute("message", "Has acertado, el numero era " + session.getAttribute("valor"));
+						contexto.getRequestDispatcher("/index.jsp").forward(request, response);
+					}else {
+						ArrayList<Object> attempt = new ArrayList<Object>();
+						if(session.getAttribute("intentos") != null) {
+							intentos = (ArrayList<ArrayList<Object>>) session.getAttribute("intentos");
+							attempt.add((int)(intentos.get(intentos.size()-1).get(0))+1);
+							attempt.add(valor);
+							Date date = new Date();
+							attempt.add(date);
+						}else {
+							attempt.add(1);
+							attempt.add(valor);
+							Date date = new Date();
+							attempt.add(date);
+						}
+						intentos.add(attempt);
+						session.setAttribute("intentos", intentos);
+						if(valor>(Integer) session.getAttribute("valor")) {
+							session.setAttribute("message", "Intentalo de nuevo, el numero que tienes que adivinar es más pequeño.");
+						}else {
+							session.setAttribute("message", "Intentalo de nuevo, el numero que tienes que adivinar es más grande.");
+						}
+						contexto.getRequestDispatcher("/selectNumber.jsp").forward(request, response);
+					}
+			}catch(Exception e) {
+				session.setAttribute("message", "Debe introducir un número entero");
+				contexto.getRequestDispatcher("/selectNumber.jsp").forward(request, response);
+			}
 		 }
-		try {
-			 valor = Integer.parseInt(request.getParameter("attempt"));
-		}catch(Exception e) {
-			session.setAttribute("message", "Debe introducir un número entero");
-			contexto.getRequestDispatcher("/selectNumber.jsp").forward(request, response);
-			return;
-		}
-		if(valor == (Integer) session.getAttribute("valor")) {
-			session.setAttribute("message", "Has acertado, el numero era " + session.getAttribute("valor"));
-			contexto.getRequestDispatcher("/index.jsp").forward(request, response);
-			return;
-		}else {
-			ArrayList<Object> attempt = new ArrayList<Object>();
-			if(session.getAttribute("intentos") != null) {
-				intentos = (ArrayList<ArrayList<Object>>) session.getAttribute("intentos");
-				attempt.add((int)(intentos.get(intentos.size()-1).get(0))+1);
-				attempt.add(valor);
-				Date date = new Date();
-				attempt.add(date);
-			}else {
-				attempt.add(1);
-				attempt.add(valor);
-				Date date = new Date();
-				attempt.add(date);
-			}
-			intentos.add(attempt);
-			session.setAttribute("intentos", intentos);
-			if(valor>(Integer) session.getAttribute("valor")) {
-				session.setAttribute("message", "Intentalo de nuevo, el numero que tienes que adivinar es más pequeño.");
-			}else {
-				session.setAttribute("message", "Intentalo de nuevo, el numero que tienes que adivinar es más grande.");
-			}
-			contexto.getRequestDispatcher("/selectNumber.jsp").forward(request, response);
-		}
 	}
 
 }
